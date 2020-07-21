@@ -1,0 +1,28 @@
+{% extends "pages/base.html" %}
+
+{% block title %}
+<title>My Orders</title>
+{% endblock %}
+
+{% block content %}
+  <h4>Here are your Orders:</h4>
+    <table class="table table-striped">
+      <tr>
+        <thead>
+          <td>Cart</td>
+          <td>Total</td>
+          <td>Status</td>
+        </thead>
+      </tr>
+      {% for order,status in orders.items %}
+      <tr>
+        <td>{{order.cart}}</td>
+        <td>{{order.total}}</td>
+        <td>{{status}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <hr>
+    <a class="btn btn-info" href="/">Continue shopping</a>
+    <hr>
+{% endblock %}

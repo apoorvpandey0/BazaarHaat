@@ -1,0 +1,27 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static "pages/css/home_style.css" %}">
+<link href="https://fonts.googleapis.com/css?family=Heebo&display=swap" rel="stylesheet">
+{% include "pages/navbar.html" %}
+<!-- Main body part begins here -->
+<div class="body">
+  <h1 class="head">Pick a market</h1>
+  {% for market in markets %}
+    <a href="/market/{{market.id}}/">
+    <div class="card">
+      <div class="card_image"> <img src="{{market.image.url}}" /> </div>
+      <div class="card_title title-white">
+        <p>{{market.title}}</p>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<!-- Footer part begins here -->
+<hr>
+<div class="footer">
+  <a href="/shop/register/"><h3>Want to register for a seller account ?</h3></a>
+</div>
+{% endblock %}

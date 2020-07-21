@@ -1,0 +1,38 @@
+{% extends 'pages/base_home.html' %}
+
+{% block content %}
+  <p class = "text">Showing results for {{request.GET.search}}</p>
+  {% for item in page_obj %}
+    <!--Product card-->
+    <div class="card">
+      <div class="card-body">
+      <a href="/product/{{item.id}}/">
+      <img class="img-thumbnail" style="width:110px" src="{{ item.image.url }}" alt="pic">
+
+          <h6 class="account-heading">{{ item.title }}</h6>
+          <p class="text-secondary">{{item.description}}</p>
+          <a href="/cartitem/create/{{item.id}}" class="btn btn-primary">Add to Cart</a>
+      </a>
+      </div>
+      </div>
+  {% endfor %}
+  {% if page_obj.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Previous</a>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Next</a>
+  <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Last</a>
+  {% endif %}
+
+  
+{% endblock %}

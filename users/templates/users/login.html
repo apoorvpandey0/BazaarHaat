@@ -1,0 +1,27 @@
+{% extends "pages/base.html" %}
+{% block content %}
+{% include "pages/navbar.html" %}
+{% load crispy_forms_tags %}
+<style media="screen">
+  .content-section{
+    margin:1rem;
+  }
+</style>
+<div class="content-section">
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset class = 'form-group'>
+      <legend class='border-bottom mb-4'>Login Now</legend>
+      {{form|crispy}}
+    </fieldset>
+    <div class="form-group">
+      <button class='btn btn-outline-info' type="submit" name="button">Log In</button>
+    </div>
+    <div class="border top pt-3">
+      <small class='text-muted'>
+        Do you need an account? <a class='ml-2' href="{% url 'users-register' %}">create one here</a>
+      </small>
+    </div>
+  </form>
+</div>
+{% endblock %}

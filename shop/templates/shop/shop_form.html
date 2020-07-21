@@ -1,0 +1,17 @@
+{% extends "pages/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% include "pages/navbar.html" %}
+<style media="screen">
+  .bootstrap4{
+    margin:1rem;
+    margin-top:70px;
+  }
+</style>
+<form  method="POST" class="bootstrap4">
+{% csrf_token %}
+{{form | crispy}}
+<input type='submit' value='Save' />
+</form>
+{% endblock %}

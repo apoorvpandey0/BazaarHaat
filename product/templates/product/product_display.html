@@ -1,0 +1,138 @@
+{% extends "pages/base_home.html" %}
+{% load crispy_forms_tags %}
+
+{% block CSS %}
+
+<!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"> -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+{% endblock %}
+{% block content %}
+{% load static %}
+<div class="contaeiner">
+  <div class="row">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+      <div class="card">
+        <img class="card-img" src="{{item.image.url}}" alt="{{item.title}}">
+        <div class="card-img-overlay d-flex justify-content-end">
+          <!-- <a href="#" class="card-link text-danger like">
+            <i class="fas fa-heart"></i>
+          </a> -->
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">{{item.title}}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Style: VA33TXRJ5</h6>
+          <p class="card-text">{{item.description}}</p>
+          <div class="options d-flex flex-fill">
+          </div>
+          <div class="buy d-flex justify-content-between align-items-center">
+            <div class="price text-success"><h5 class="mt-4">{{item.my_price}}</h5></div>
+            <div class="price text-danger"><h6 class="mt-4"><del>{{item.actual_price}}</del></h6></div>
+            <!-- <div id = "discount" class="price text-primary"  style="margin-top:5px"><h5 class="mt-4"></h5></div> -->
+             <a href="#" class="btn btn-success mt-3" id='discount'><i class="fas fa-shopping-cart"></i></a>
+          </div>
+        </div>
+      </div>
+      <a class="btn btn-primary mt-3" style="width:100%" href="/cartitem/create/{{item.id}}"><i class="fas fa-shopping-cart"></i> Add To Cart / Buy Now</a>
+      <a class="btn btn-primary mt-3" style="width:100%" href="/wishlistitem/create/{{item.id}}"><i class="fas fa-shopping-cart"></i> Wishlist</a>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- <h4 class = "text-center" style="text-color:0fff">Reviews</h4>
+<div class="container">
+  {% for review in reviews %}
+  <div class="card">
+      <div class="card-body">
+          <div class="row">
+              <div class="col">
+                  <p id = 'review-head'><a href="#"><strong>{{review.user.get_fullname}}</strong></a>
+                    <span class="float-right">Rated: {{review.rating}}</span>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                  </p>
+                  <p>{{review.text}}</p>
+                  <p>
+                    <span class="float-left" style="margin-right:5px"><a href="review/edit/{{review.id}}">edit</span>
+                    <span class="float-left"><a href="{% url 'review-delete' review.id %}">delete</a></span>
+                      <a class="float-right btn btn-outline-primary ml-2">  <i class="fa fa-reply"></i> Reply</a>
+                      <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                 </p>
+              </div>
+          </div>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+<hr>
+{% if user.is_authenticated %}
+<div class="container">
+  <p>Write your Review:</p>
+  <form method="post">
+    {% csrf_token %}
+    {{reviewform|crispy}}
+    <input type="submit" name="" value="Post">
+  </form>
+</div>
+{% endif %}
+-->
+
+
+<!-- Similar Products -->
+<div class="card border-dark" style="margin-top:1rem">
+  <div class="card-header">
+    <strong>You may also like</strong>
+  </div>
+  <div class="card-body">
+    <div class="product-slides">
+      {% for prod in similar %}
+        <div class="card" style="width: 18rem;">
+          <a href="/product/{{prod.id}}/">
+          <img class="card-img-top" src="{{prod.image.url}}" alt="Card image cap">
+          <div class="card-body">
+            <h6 class="card-title" style="font-size:12px" href="product/{{prod.id}}"><strong>{{prod.title}}</strong></h6>
+            <h6 class="card-text" style="font-size:18px"><strong>{{prod.my_price}}</strong></h6>
+            <h6 class="card-text text-muted" style="font-size:10px"><del>{{prod.actual_price}}</del></h6>
+          </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+
+<script>
+$(document).ready(function(){
+  $('.product-slides').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+
+    autoplay: true,
+    autoplaySpeed: 2000,
+
+    arrows: false
+  });
+});
+
+document.getElementById('discount').textContent = (100-Math.round(({{item.my_price}}/{{item.actual_price}})*100,2)) + "% OFF" ;
+
+</script>
+
+<script>
+// <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+
+</script>
+
+
+{% endblock %}
+
+{% block footer %}
+  {% include 'pages/footer.html' %}
+{% endblock %}

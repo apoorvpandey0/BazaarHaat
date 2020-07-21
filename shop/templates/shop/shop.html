@@ -1,0 +1,16 @@
+{% extends "pages/base.html" %}
+{% block content %}
+<hr>
+<h1>This is Shop View page of {{shop.title}}</h1>
+<hr>
+<h2>Available Products are:</h2>
+<ul>
+  {% for product in products %}
+    <h3><li>
+      {{product.title}}
+      <a href="/shop/{{shop.id}}/">Click here</a>
+    </li></h3>
+  {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- META TAGS -->
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block meta %}
+      <!-- Additional meta tags go here -->
+    {% endblock %}
+
+    <!-- CSS FILES -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style media="screen">
+      body{
+        margin-top: 4rem;
+      }
+    </style>
+    {% block CSS %}
+     <!-- All the CSS goes here -->
+    {% endblock %}
+
+    <!-- TITLE -->
+    {% block title %}
+      <!-- This is the title block -->
+    {% endblock %}
+  </head>
+
+  {% include "pages/navbar.html" %}
+  <body >
+    {% block slideshow %}
+    {% endblock %}
+
+
+<!-- Sidebar stuff -->
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{message.tags}}">
+                {{message}}
+              </div>
+            {% endfor %}
+          {% endif %}
+          {% block content %}
+          {% endblock %}
+        </div>
+        <div  id = "sidebar" class="col-md-4">
+          <div class="content-section">
+            <h3>Sidebar</h3>
+            <p class='text-muted'>Kuch bhi rakhe.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Latest Posts</li>
+                <li class="list-group-item list-group-item-light">Announcements</li>
+                <li class="list-group-item list-group-item-light">Calendars</li>
+                <li class="list-group-item list-group-item-light">etc</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+      </main>
+
+    {% block footer %}
+    {% endblock %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    {% block JS %}
+    {% endblock %}
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      if(window.innerWidth<768){
+        document.getElementById('sidebar').classList.add("d-none");
+      }
+      if(window.innerWidth>768){
+        document.getElementById('sidebar').classList.remove("d-none");
+      }
+    </script>
+  </body>
+</html>

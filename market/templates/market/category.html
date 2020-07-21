@@ -1,0 +1,14 @@
+{% extends "pages/base.html" %}
+{% block content %}
+{% include "pages/navbar.html" %}
+
+{% if total%}
+{% for item in queryset %}
+  <a href="{{item.id}}"><h3>{{item.title}}</h3></a>
+{% endfor %}
+{% else %}
+<h1>sasasas</h1>
+<h1>No items found</h1>
+{% endif %}
+
+{% endblock %}

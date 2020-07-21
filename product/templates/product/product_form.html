@@ -1,0 +1,9 @@
+{% extends "pages/base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<form enctype='multipart/form-data' method="POST">
+  {% csrf_token %}
+  {{form|crispy}}
+  <input class="btn btn-outline-info mb-4" type="submit" value="Click to Add Product">
+</form>
+{% endblock %}

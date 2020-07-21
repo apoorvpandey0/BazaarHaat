@@ -1,0 +1,54 @@
+{% extends "pages/base_home.html" %}
+{% load static %}
+{% block CSS %}
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+{% endblock %}
+
+{% block content %}
+
+{% include "pages/navbar.html" %}
+<h3>You are browsing {{name.long}}</h3>
+{% for cate,prods in products.items %}
+  <div class="card border-dark">
+    <div class="card-header">
+      <a href="/subcategory/{{cate.short}}/" style="text-color:black""><strong>{{cate.long}}</strong></a>
+    </div>
+    <div class="card-body">
+      <div class="product-slides">
+        {% for item in prods %}
+
+        <div class="card" style="width: 18rem;">
+          <a href="/product/{{item.id}}/">
+          <img class="card-img-top" src="{{item.image.url}}" alt="Card image cap">
+          <div class="card-body">
+            <h6 class="card-title" style="font-size:12px" href="product/{{item.id}}"><strong>{{item.title}}</strong></h6>
+            <h6 class="card-text" style="font-size:18px"><strong>{{item.my_price}}</strong></h6>
+            <h6 class="card-text text-muted" style="font-size:10px"><del>{{item.actual_price}}</del></h6>
+          </div>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endfor %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+
+<script>
+$(document).ready(function(){
+  $('.product-slides').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+
+    autoplay: true,
+    autoplaySpeed: 2000,
+
+    arrows: false
+  });
+});
+
+</script>
+{% endblock %}

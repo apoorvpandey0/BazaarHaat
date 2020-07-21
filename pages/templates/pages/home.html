@@ -1,0 +1,139 @@
+{% extends "pages/base_home.html" %}
+{% load static %}
+{% block CSS %}
+  <link href="https://fonts.googleapis.com/css?family=Heebo&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+
+{% block content %}
+<div class="slideshow">
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    {% for next in rest_slides %}
+      <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter }}"></li>
+    {% endfor %}
+  </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="{{ first_slide.image.url }}" alt="First slide">
+      </div>
+      {% for next in rest_slides %}
+        <div class="carousel-item">
+          <img class="d-block w-100" src="{{ next.image.url }}" alt="{{next.image.name}}">
+        </div>
+      {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+<!-- Products Services and Entertainment -->
+
+<ul class="nav nav-pills row my-1" id="myTab" role="tablist">
+  <li class="nav-item col">
+    <a class="nav-link active" id="products-tab" data-toggle="tab" href="#products" role="tab" aria-controls="products" aria-selected="true">Products</a>
+  </li>
+  <li class="nav-item col">
+    <a class="nav-link" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">Services</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="products" role="tabpanel" aria-labelledby="home-tab">
+    <!-- Section 1 -->
+    {% for cate,prods in products.items %}
+        <div class="card border-dark">
+        <div class="card-header">
+          <a href="category/{{cate.short}}" style="text-color:black""><strong>{{cate.long}}</strong></a>
+        </div>
+        <div class="card-body">
+          <div class="product-slides">
+            {% for item in prods %}
+
+            <div class="card" style="width: 18rem;">
+              <a href="/product/{{item.id}}/">
+              <img class="card-img-top" src="{{item.image.url}}" alt="Card image cap">
+              <div class="card-body">
+                <h6 class="card-title" style="font-size:12px" href="product/{{item.id}}"><strong>{{item.title}}</strong></h6>
+                <h6 class="card-text" style="font-size:18px"><strong>{{item.my_price}}</strong></h6>
+                <h6 class="card-text text-muted" style="font-size:10px"><del>{{item.actual_price}}</del></h6>
+              </div>
+              </a>
+            </div>
+
+            {% endfor %}
+          </div>
+        </div>
+        </div>
+    {% endfor %}
+
+  </div>
+  <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
+    <!-- Section 2 -->
+    {% for cate,servs in services.items %}
+        <div class="card border-dark">
+        <div class="card-header">
+          <a href="category/{{cate.short}}" style="text-color:black""><strong>{{cate.long}}</strong></a>
+        </div>
+        <div class="card-body">
+          <div class="product-slides">
+            {% for item in servs %}
+              <div class="card" style="width: 18rem;">
+                <a href="/product/{{item.id}}/">
+                <img class="card-img-top" src="{{item.image.url}}" alt="Card image cap">
+                <div class="card-body">
+                  <h6 class="card-title" style="font-size:12px" href="product/{{item.id}}"><strong>{{item.title}}</strong></h6>
+                  <h6 class="card-text" style="font-size:18px"><strong>{{item.my_price}}</strong></h6>
+                  <h6 class="card-text text-muted" style="font-size:10px"><del>{{item.actual_price}}</del></h6>
+                </div>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        </div>
+    {% endfor %}
+  </div>
+<hr>
+
+{% endblock %}
+
+<!-- Footer part begins here -->
+
+{% block footer %}
+  {% if user.profile.is_seller %}
+  {% else %}
+      <a href="shop/register">Want to register for a seller account ?</a>
+  {% endif %}
+  {% include 'pages/footer.html' %}
+{% endblock %}
+
+{% block JS %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+
+<script>
+$(document).ready(function(){
+  $('.product-slides').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+
+    autoplay: true,
+    autoplaySpeed: 2000,
+
+    arrows: false
+  });
+});
+
+</script>
+{% endblock %}
