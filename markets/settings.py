@@ -25,7 +25,8 @@ SECRET_KEY = '87wg8$)r93ufwyl+zfzd2=30=w(xr@#m+a!y=s_-)7mab$5bo!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['bazaarhaat.herokuapp.com',"localhost","www.localhost","api.localhost"]
+# ALLOWED_HOSTS = ['bazaarhaat.herokuapp.com',"localhost","www.localhost","api.localhost","bazaarhaat.azurewebsites.net"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
